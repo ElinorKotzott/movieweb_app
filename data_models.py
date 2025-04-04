@@ -1,3 +1,4 @@
+
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, String, Date, Integer, Float
 
@@ -31,5 +32,3 @@ class Movie(db.Model):
         """represents instance of movie as a string"""
         return f"Movie title: {self.name}, id: {self.id}, director: {self.director}, published in: {self.year}, rating: {self.rating}"
 
-    with app.app_context():
-        db.create_all()

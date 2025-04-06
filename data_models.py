@@ -10,12 +10,11 @@ class User(db.Model):
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String)
-    birthday = Column(Date)
 
 
     def __str__(self):
         """represents instance of user as a string"""
-        return f"Name: {self.name}, id: {self.id}, birthday: {self.birthday}"
+        return f"Name: {self.name}, id: {self.id}"
 
 
 class Movie(db.Model):
@@ -31,4 +30,13 @@ class Movie(db.Model):
     def __str__(self):
         """represents instance of movie as a string"""
         return f"Movie title: {self.name}, id: {self.id}, director: {self.director}, published in: {self.year}, rating: {self.rating}"
+
+
+class UserMovie(db.Model):
+    __tablename__ = "users_movies"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    user_id = Column(Integer)
+    movie_id = Column(Integer)
+
 

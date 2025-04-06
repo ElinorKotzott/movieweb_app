@@ -1,5 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
-from data_manager import DataManager
+from movieweb_app.datamanager.data_manager import DataManager
 from data_models import User, Movie, UserMovie, db
 
 
@@ -39,6 +39,8 @@ class SQLiteDataManager(DataManager):
 
 
     def delete_movie(self, movie_id):
+        """if movie with the provided movie_id exists: deletes the movie"""
         to_delete = Movie.query.get(movie_id)
-        db.session.delete(to_delete)
-        db.session.commit()
+        if to_delete:
+            db.session.delete(to_delete)
+            db.session.commit()

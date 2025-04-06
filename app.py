@@ -1,8 +1,6 @@
 import os
-from data_models import db, User, Movie
+from movieweb_app.datamanager.data_models import db
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-
 
 app = Flask(__name__)
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -13,5 +11,5 @@ os.makedirs(os.path.join(basedir, 'data'), exist_ok=True)
 app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{db_path}'
 db.init_app(app)
 
-with app.app_context():
-    db.create_all()
+#with app.app_context():
+#    db.create_all()

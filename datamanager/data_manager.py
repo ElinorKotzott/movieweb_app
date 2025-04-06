@@ -1,5 +1,4 @@
 from abc import ABC, abstractmethod
-from data_models import db
 
 
 class DataManager:

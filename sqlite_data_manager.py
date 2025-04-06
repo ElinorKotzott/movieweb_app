@@ -11,6 +11,7 @@ class SQLiteDataManager(DataManager):
     def get_all_users(self):
         return User.query.all()
 
+
     def get_user_movies(self, user_id):
         """getting all movies of one user based on user id. first, we're filtering users_movies, searching for all
         movie ids that have our user id. then, returning all movies (instances of movie) associated with that user"""
@@ -27,4 +28,17 @@ class SQLiteDataManager(DataManager):
     def add_movie(self, movie):
         """the movie object sent in will be added to the database"""
         db.session.add(movie)
+        db.session.commit()
+
+
+    def update_movie(self, movie, new_rating):
+        """allows user to update a movie rating. user input for new rating
+        and movie instance to update will be sent in"""
+        movie.rating = new_rating
+        db.session.commit()
+
+
+    def delete_movie(self, movie_id):
+        to_delete = Movie.query.get(movie_id)
+        db.session.delete(to_delete)
         db.session.commit()

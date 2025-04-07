@@ -1,6 +1,6 @@
 
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import Column, String, Date, Integer, Float
+from sqlalchemy import Column, String, Integer, Float
 
 db = SQLAlchemy()
 

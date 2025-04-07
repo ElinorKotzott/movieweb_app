@@ -2,7 +2,7 @@ import os
 
 from datamanager import data_models
 from datamanager.sqlite_data_manager import SQLiteDataManager
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template
 
 app = Flask(__name__)
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -18,7 +18,7 @@ data_manager = SQLiteDataManager(data_models)
 
 @app.route('/')
 def home():
-    return 'Welcome to MovieWeb App!'
+    return render_template('index.html')
 
 
 @app.route('/users')
@@ -32,7 +32,9 @@ def list_user_movies(user_id):
     user_movies = data_manager.get_user_movies(user_id)
     return user_movies
 
-
+@app.route('/add_movie')
+def add_movie():
+    title = request.form.get('title')
 
 
 if __name__ == '__main__':

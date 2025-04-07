@@ -1,8 +1,9 @@
+from datetime import datetime
 import os
 
 from datamanager import data_models
 from datamanager.sqlite_data_manager import SQLiteDataManager
-from flask import Flask, jsonify, request, render_template, redirect
+from flask import Flask, request, render_template, redirect
 
 from movieweb_app.datamanager.data_models import Movie
 
@@ -38,6 +39,7 @@ def list_user_movies(user_id):
 
 @app.route('/add_movie', methods=['GET', 'POST'])
 def add_movie():
+    current_year = datetime.now().year
     if request.method == 'POST':
         name = request.form.get('name')
         director = request.form.get('director')
@@ -47,7 +49,7 @@ def add_movie():
         data_manager.add_movie(new_movie)
         return redirect('/')
 
-    return render_template('add_movie.html')
+    return render_template('add_movie.html', current_year=current_year)
 
 
 

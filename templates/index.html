@@ -3,15 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>MovieWebApp</title>
-    <link rel="icon" href="{{ url_for('static', filename='camera.png') }}" type="image/png">
+    <link rel="stylesheet" href="/static/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
+    <link rel="icon" href="/static/camera.png" type="image/png">
 </head>
-<body style="background-color: #E6E6FA">
-<h1 style="font-family: 'Quicksand'; font-weight: bold; font-size: 2em; color: #4B0082;">Welcome to MovieWeb App!</h1>
+<body>
+<h1>Welcome to the MovieWeb App!</h1>
 <div>
     <ul>
         {% for movie in movies %}
-        <li style="margin-bottom: 20px; font-family: 'Quicksand';">
+        <li>
             Title: {{ movie.name }} <br>
             Year: {{ movie.year }} <br>
             Director: {{ movie.director }} <br>

@@ -16,7 +16,7 @@ class SQLiteDataManager(DataManager):
         """getting all movies of one user based on user id. first, we're filtering users_movies, searching for all
         movie ids that have our user id. then, returning all movies (instances of movie) associated with that user"""
         user_movies = self.models.UserMovie.query.filter_by(user_id=user_id).all()
-        return [self.models.Movie.query.get(entry.movie_id) for entry in user_movies]
+        return [user_movie.title for user_movie in user_movies]
 
 
     def add_user(self, user):

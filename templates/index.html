@@ -4,9 +4,21 @@
     <meta charset="UTF-8">
     <title>MovieWebApp</title>
     <link rel="icon" href="{{ url_for('static', filename='camera.png') }}" type="image/png">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
 </head>
 <body style="background-color: #E6E6FA">
-    <p style="font-family: 'Roboto', sans-serif; color: #4B0082;">Welcome to MovieWeb App!</p>
+<h1 style="font-family: 'Quicksand'; font-weight: bold; font-size: 2em; color: #4B0082;">Welcome to MovieWeb App!</h1>
+<div>
+    <ul>
+        {% for movie in movies %}
+        <li style="margin-bottom: 20px; font-family: 'Quicksand';">
+            Title: {{ movie.name }} <br>
+            Year: {{ movie.year }} <br>
+            Director: {{ movie.director }} <br>
+            Rating: {{ movie.rating }} <br>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
 </body>
 </html>

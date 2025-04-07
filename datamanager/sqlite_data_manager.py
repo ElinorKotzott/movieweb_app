@@ -6,6 +6,11 @@ class SQLiteDataManager(DataManager):
     def __init__(self, models):
         self.models = models
 
+    def get_all_movies(self):
+        movies = self.models.Movie.query.all()
+        return movies
+
+
     def get_all_users(self):
         users = self.models.User.query.all()
         names = [user.name for user in users]

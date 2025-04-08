@@ -17,10 +17,18 @@ class SQLiteDataManager(DataManager):
 
 
     def get_user_movies(self, user_id):
-        """getting all movies of one user based on user id. first, we're filtering users_movies, searching for all
-        movie ids that have our user id. then, returning all movies (instances of movie) associated with that user"""
-        user_movies = self.models.UserMovie.query.filter_by(user_id=user_id).all()
-        return [user_movie.title for user_movie in user_movies]
+        """getting all movies of one user based on user id: first, filtering users_movies, searching for all
+        rows that have the user_id. then, extracting movie ids from these results. then, checking for these
+        movie ids in the movies table and getting the names of those movies and returning them"""
+        user_movie_instances = self.models.UserMovie.query.filter_by(user_id=user_id).all()
+        print(user_movie_instances)
+        movie_ids = [instance.movie_id for instance in user_movie_instances]
+        print(movie_ids)
+        all_movies = self.models.Movie.query.all()
+        user_movies = [movie.name for movie in all_movies if movie.id in movie_ids]
+        print(user_movies)
+        return user_movies
+
 
 
     def add_user(self, user):

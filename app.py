@@ -32,7 +32,7 @@ def list_users():
 
 @app.route('/users/<user_id>')
 def list_user_movies(user_id):
-    user_id = request.args.get(user_id)
+    print(user_id)
     user_movies = data_manager.get_user_movies(user_id)
     return user_movies
 
@@ -61,6 +61,8 @@ def add_user():
         data_manager.add_user(new_user)
         return redirect('/')
     return render_template('add_user.html')
+
+
 
 
 

@@ -7,10 +7,10 @@ body {
 }
 
 main {
-background-color: #FBF3B9;
-border-radius: 20px;
-padding: 30px;
-margin: 30px 20px;
+    background-color: #FBF3B9;
+    border-radius: 20px;
+    padding: 15px 50px;
+    margin: 20px;
 }
 
 h1 {

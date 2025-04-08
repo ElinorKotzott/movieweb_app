@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ user }}'s favorite movies</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="icon" href="/static/camera.png" type="image/png">
+</head>
+<body>
+<main>
+    <h1>{{ user }}'s top movies</h1>
+    <div>
+        <ul>
+            {% for movie in user_movies %}
+            <li>
+                Movie name: {{ movie.name }} <br>
+                Year: {{ movie.year }} <br>
+                Rating: {{ movie.rating }} <br>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</main>
+</body>
+</html>

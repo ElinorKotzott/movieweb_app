@@ -32,7 +32,6 @@ def list_users():
 
 @app.route('/users/<user_id>')
 def list_user_movies(user_id):
-    print(user_id)
     user_movies = data_manager.get_user_movies(user_id)
     return user_movies
 

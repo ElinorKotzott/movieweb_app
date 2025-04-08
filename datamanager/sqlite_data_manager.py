@@ -21,12 +21,9 @@ class SQLiteDataManager(DataManager):
         rows that have the user_id. then, extracting movie ids from these results. then, checking for these
         movie ids in the movies table and getting the names of those movies and returning them"""
         user_movie_instances = self.models.UserMovie.query.filter_by(user_id=user_id).all()
-        print(user_movie_instances)
         movie_ids = [instance.movie_id for instance in user_movie_instances]
-        print(movie_ids)
         all_movies = self.models.Movie.query.all()
         user_movies = [movie.name for movie in all_movies if movie.id in movie_ids]
-        print(user_movies)
         return user_movies
 
 

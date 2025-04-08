@@ -13,8 +13,7 @@ class SQLiteDataManager(DataManager):
 
     def get_all_users(self):
         users = self.models.User.query.all()
-        names = [user.name for user in users]
-        return names
+        return users
 
 
     def get_user_movies(self, user_id):

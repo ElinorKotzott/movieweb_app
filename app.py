@@ -27,7 +27,7 @@ def home():
 @app.route('/users')
 def list_users():
     users = data_manager.get_all_users()
-    return users
+    return render_template('list_users.html', users=users)
 
 
 @app.route('/users/<user_id>')
@@ -55,7 +55,9 @@ def add_movie():
 def add_user():
     if request.method == 'POST':
         name = request.form.get('name')
-        new_user = User(name=name)
+        birthday_str = request.form.get('birthday')
+        birthday = datetime.strptime(birthday_str, '%Y-%m-%d')
+        new_user = User(name=name, birthday=birthday)
         data_manager.add_user(new_user)
         return redirect('/')
     return render_template('add_user.html')

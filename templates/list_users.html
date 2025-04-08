@@ -2,22 +2,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>MovieWebApp</title>
+    <title>List Users</title>
     <link rel="stylesheet" href="/static/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link rel="icon" href="/static/camera.png" type="image/png">
 </head>
 <body>
 <main>
-    <h1>Welcome to the MovieWeb App!</h1>
+    <h1>MovieWeb App Users:</h1>
     <div>
         <ul>
-            {% for movie in movies %}
+            {% for user in users %}
             <li>
-                Title: {{ movie.name }} <br>
-                Year: {{ movie.year }} <br>
-                Director: {{ movie.director }} <br>
-                Rating: {{ movie.rating }} <br>
+                Name: {{ user.name }} <br>
+                Birthday: {{ user.birthday }} <br>
             </li>
             {% endfor %}
         </ul>

@@ -1,6 +1,6 @@
 
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import Column, String, Integer, Float
+from sqlalchemy import Column, String, Integer, Float, Date
 
 db = SQLAlchemy()
 
@@ -10,11 +10,12 @@ class User(db.Model):
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String)
+    birthday = Column(Date)
 
 
     def __str__(self):
         """represents instance of user as a string"""
-        return f"Name: {self.name}, id: {self.id}"
+        return f"Name: {self.name}, id: {self.id}, birthday: {self.birthday}"
 
 
 class Movie(db.Model):

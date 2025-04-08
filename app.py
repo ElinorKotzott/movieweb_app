@@ -5,7 +5,7 @@ from datamanager import data_models
 from datamanager.sqlite_data_manager import SQLiteDataManager
 from flask import Flask, request, render_template, redirect
 
-from movieweb_app.datamanager.data_models import Movie
+from movieweb_app.datamanager.data_models import Movie, User
 
 app = Flask(__name__)
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -48,8 +48,17 @@ def add_movie():
         new_movie = Movie(name=name, director=director, year=year, rating=rating)
         data_manager.add_movie(new_movie)
         return redirect('/')
-
     return render_template('add_movie.html', current_year=current_year)
+
+
+@app.route('/add_user', methods=['GET', 'POST'])
+def add_user():
+    if request.method == 'POST':
+        name = request.form.get('name')
+        new_user = User(name=name)
+        data_manager.add_user(new_user)
+        return redirect('/')
+    return render_template('add_user.html')
 
 
 

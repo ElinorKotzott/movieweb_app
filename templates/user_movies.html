@@ -14,14 +14,17 @@
         <ul>
             {% for movie in user_movies %}
             <li>
-                Movie name: {{ movie.name }} <br>
-                Year: {{ movie.year }} <br>
-                Rating: {{ movie.rating }} <br>
-                <form method="POST"
-                      action="{{ url_for('delete_movie_from_favs', user_id=user.id, movie_id=movie.id) }}">
-                    <button class="delete-button" type="submit">Delete</button>
-                </form>
-
+                <div>
+                    Movie name: {{ movie.name }} <br>
+                    Year: {{ movie.year }} <br>
+                    Rating: {{ movie.rating }} <br>
+                </div>
+                <div>
+                    <form method="POST"
+                          action="{{ url_for('delete_movie_from_favs', user_id=user.id, movie_id=movie.id) }}">
+                        <button type="submit">Delete</button>
+                    </form>
+                </div>
             </li>
             {% endfor %}
         </ul>

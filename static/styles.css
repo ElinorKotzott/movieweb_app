@@ -71,9 +71,6 @@ form button:hover {
     background-color: #D0C9F7;
 }
 
-.delete-button {
-/* add styling for delete buttons so that they're aligned to the right next to each movie list element*/
-}
 
 a {
     text-decoration: none;
@@ -84,3 +81,9 @@ a {
 a:hover {
     color: #FDB7EA;
 }
+
+li {
+display: flex;
+justify-content: space-between;
+}
+

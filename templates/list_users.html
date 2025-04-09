@@ -14,7 +14,7 @@
         <ul>
             {% for user in users %}
             <li>
-                <div>Name: <a href="{{ url_for('list_user_movies', user_id=user.id) }}">{{ user.name }}</a> <br>
+                <div>Name: <a id="link-to-favs" href="{{ url_for('list_user_movies', user_id=user.id) }}">{{ user.name }}</a> <br>
                     Birthday: {{ user.birthday }} <br></div>
             </li>
             {% endfor %}

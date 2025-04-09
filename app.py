@@ -75,5 +75,10 @@ def delete_movie(movie_id):
     return redirect('/')
 
 
+@app.route('/update_movie', methods=['POST'])
+def update_movie():
+    pass
+
+
 if __name__ == '__main__':
     app.run(debug=True)

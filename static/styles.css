@@ -8,9 +8,10 @@ body {
 
 main {
     background-color: #FBF3B9;
-    border-radius: 20px;
-    padding: 15px 50px;
+    border-radius: 2rem;
+    padding: 25px 60px;
     margin: 20px;
+    box-shadow: 0 4px 12px rgba(200, 150, 160, 0.4);
 }
 
 h1 {
@@ -43,6 +44,9 @@ form label {
 }
 
 form input {
+    font-family: "Borel", cursive;
+    font-weight: 400;
+    font-style: normal;
     margin-bottom: 15px;
     padding: 10px;
     width: 20em;
@@ -65,6 +69,10 @@ form button {
 
 form button:hover {
     background-color: #D0C9F7;
+}
+
+.delete-button {
+/* add styling for delete buttons so that they're aligned to the right next to each movie list element*/
 }
 
 a {

@@ -9,7 +9,7 @@
 </head>
 <body>
 <main>
-    <h1>{{ user }}'s top movies</h1>
+    <h1>{{ user.name }}'s favorites list</h1>
     <div>
         <ul>
             {% for movie in user_movies %}
@@ -17,6 +17,11 @@
                 Movie name: {{ movie.name }} <br>
                 Year: {{ movie.year }} <br>
                 Rating: {{ movie.rating }} <br>
+                <form method="POST"
+                      action="{{ url_for('delete_movie_from_favs', user_id=user.id, movie_id=movie.id) }}">
+                    <button class="delete-button" type="submit">Delete</button>
+                </form>
+
             </li>
             {% endfor %}
         </ul>

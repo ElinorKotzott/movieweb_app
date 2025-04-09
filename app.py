@@ -30,7 +30,7 @@ def list_users():
 
 @app.route('/users/<user_id>')
 def list_user_movies(user_id):
-    user = data_models.User.query.get(user_id).name
+    user = data_models.User.query.get(user_id)
     user_movies = data_manager.get_user_movies(user_id)
     return render_template('user_movies.html', user_movies=user_movies, user=user)
 
@@ -61,7 +61,18 @@ def add_user():
     return render_template('add_user.html')
 
 
+@app.route('/users/<user_id>/delete_movie/<movie_id>', methods=['POST'])
+def delete_movie_from_favs(user_id, movie_id):
+    data_manager.delete_user_movie(user_id, movie_id)
+    return redirect(f'/users/{user_id}')
 
+
+@app.route('/delete_movie/<movie_id>', methods=['POST'])
+def delete_movie(movie_id):
+    data_manager.delete_movie(movie_id)
+    #TODO add flash message 'movie successfully deleted' - how to do that?
+    # also: how and where to check whether deletion was actually successful?
+    return redirect('/')
 
 
 if __name__ == '__main__':

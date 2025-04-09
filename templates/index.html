@@ -20,8 +20,8 @@
                     Director: {{ movie.director }} <br>
                     Rating: {{ movie.rating }} <br>
                 </div>
-                <div>
-                    <a href="/update_movies" id="update-button">Update</a>
+                <div id="update-delete">
+                    <a href="/update_movie" id="update-button">Update</a>
                     <form method="POST"
                           action="{{ url_for('delete_movie', movie_id=movie.id) }}">
                         <button type="submit">Delete</button>

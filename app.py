@@ -75,9 +75,9 @@ def delete_movie(movie_id):
     return redirect('/')
 
 
-@app.route('/update_movie', methods=['POST'])
+@app.route('/update_movie', methods=['GET', 'POST'])
 def update_movie():
-    pass
+    return render_template('update_movie.html')
 
 
 if __name__ == '__main__':

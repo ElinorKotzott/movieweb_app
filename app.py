@@ -70,8 +70,8 @@ def delete_movie_from_favs(user_id, movie_id):
 @app.route('/delete_movie/<movie_id>', methods=['POST'])
 def delete_movie(movie_id):
     data_manager.delete_movie(movie_id)
-    #TODO add flash message 'movie successfully deleted' - how to do that?
-    # also: how and where to check whether deletion was actually successful?
+    # TODO add flash message 'movie successfully deleted' - how to do that?
+    #  also: how and where to check whether deletion was actually successful?
     return redirect('/')
 
 

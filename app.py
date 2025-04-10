@@ -19,18 +19,21 @@ data_manager = SQLiteDataManager(data_models)
 
 @app.route('/')
 def home():
+    """getting all movies via data_manager and listing them on our home page"""
     movies = data_manager.get_all_movies()
     return render_template('index.html', movies=movies)
 
 
 @app.route('/users')
 def list_users():
+    """getting all users via data_manager and listing them on a page"""
     users = data_manager.get_all_users()
     return render_template('list_users.html', users=users)
 
 
 @app.route('/users/<user_id>')
 def list_user_movies(user_id):
+    """showing all favorites of a specific user using the user_id"""
     user = data_models.User.query.get(user_id)
     user_movies = data_manager.get_user_movies(user_id)
     return render_template('user_movies.html', user_movies=user_movies, user=user)
@@ -38,6 +41,8 @@ def list_user_movies(user_id):
 
 @app.route('/add_movie', methods=['GET', 'POST'])
 def add_movie():
+    """renders add movie template (get). allows adding of a movie to the database
+    using a form (post) and shows message upon redirect"""
     current_year = datetime.now().year
     if request.method == 'POST':
         name = request.form.get('name')
@@ -52,6 +57,8 @@ def add_movie():
 
 @app.route('/add_user', methods=['GET', 'POST'])
 def add_user():
+    """allows adding a user to the database. renders add_user upon get request,
+    shows a success message upon redirect to home"""
     if request.method == 'POST':
         name = request.form.get('name')
         birthday_str = request.form.get('birthday')
@@ -64,35 +71,42 @@ def add_user():
 
 @app.route('/users/<user_id>/delete_movie/<movie_id>', methods=['POST'])
 def delete_movie_from_favs(user_id, movie_id):
+    """allows user to delete a movie from their personal list. takes user_id and movie_id
+    and deletes movie based on that. shows a success message on the user's personal page
+    upon redirect"""
     flash(data_manager.delete_user_movie(user_id, movie_id))
     return redirect(f'/users/{user_id}')
 
 
 @app.route('/delete_movie/<movie_id>', methods=['POST'])
 def delete_movie(movie_id):
+    """allows deletion of a movie from the database based on movie_id.
+    shows a success message upon redirect to home"""
     flash(data_manager.delete_movie(movie_id))
     return redirect('/')
 
 
-@app.route('/update_movie', methods=['GET', 'POST'])
-def update_movie():
-    all_movies = data_models.Movie.query.all()
+@app.route('/update_movie', methods=['GET'])
+def get_selected_movie_information():
+    """"""
     selected_movie = None
-    if request.method == 'POST':
-        movie_id = request.form.get('title')
-
-        if movie_id and not request.form.get('year'):
-            selected_movie = data_models.Movie.query.filter_by(id=movie_id).first()
-
-        elif movie_id and request.form.get('year'):
-            selected_movie = data_models.Movie.query.filter_by(id=movie_id).first()
-            selected_movie.year = int(request.form.get('year'))
-            selected_movie.director = request.form.get('director')
-            selected_movie.rating = float(request.form.get('rating'))
-            flash(data_manager.update_movie(selected_movie))
-        return redirect('/')
-
+    all_movies = data_models.Movie.query.all()
+    movie_id = request.args.get('movie_id_select')
+    if movie_id is not None:
+        selected_movie = data_models.Movie.query.filter_by(id=movie_id).first()
     return render_template('update_movie.html', movies=all_movies, selected_movie=selected_movie)
+
+
+
+@app.route('/update_movie', methods=['POST'])
+def update_movie():
+    movie_id = request.form.get('movie_id')
+    if movie_id is not None:
+        year = int(request.form.get('year'))
+        director = request.form.get('director')
+        rating = float(request.form.get('rating'))
+        flash(data_manager.update_movie(movie_id, year, director, rating))
+        return redirect('/')
 
 
 if __name__ == '__main__':

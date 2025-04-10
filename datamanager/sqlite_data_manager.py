@@ -6,21 +6,27 @@ from movieweb_app.datamanager.data_manager import DataManager
 class SQLiteDataManager(DataManager):
 
     def __init__(self, models):
+        """instantiating every sqlite data manager with the
+        data models that it is supposed to be using"""
         self.models = models
 
     def get_all_movies(self):
+        """finding all movies in the database by querying the movies table
+        in the database, then returning all movie instances"""
         movies = self.models.Movie.query.all()
         return movies
 
 
     def get_all_users(self):
+        """getting all users by querying the users table in the database,
+        then returning the whole user instances"""
         users = self.models.User.query.all()
         return users
 
 
     def get_user_movies(self, user_id):
-        """getting all movies of one user based on user id: first, filtering users_movies, searching for all
-        rows that have the user_id. then, extracting movie ids from these results. then, checking for these
+        """getting all movies in a user's favorites list: first, filtering users_movies by user_id.
+        then, extracting movie ids from these results. then, checking for these
         movie ids in the movies table and returning the whole movie objects"""
         user_movie_instances = self.models.UserMovie.query.filter_by(user_id=user_id).all()
         movie_ids = [instance.movie_id for instance in user_movie_instances]
@@ -30,7 +36,8 @@ class SQLiteDataManager(DataManager):
 
 
     def add_user(self, user):
-        """this method takes a user object as an argument and adds it to the database"""
+        """this method takes a user object as an argument and tries to add it to
+        the database. returns a string on whether it was successful"""
         try:
             self.models.db.session.add(user)
             self.models.db.session.commit()
@@ -41,7 +48,8 @@ class SQLiteDataManager(DataManager):
 
 
     def add_movie(self, movie):
-        """the movie object sent in will be added to the database"""
+        """takes in a movie instance that will be added to the database. returns
+        a string on whether it was successful"""
         try:
             self.models.db.session.add(movie)
             self.models.db.session.commit()
@@ -52,9 +60,13 @@ class SQLiteDataManager(DataManager):
 
 
 
-    def update_movie(self, movie):
-        """allows user to update a movie rating. user input for new rating
-        and movie instance to update will be sent in"""
+    def update_movie(self, movie_id, year, director, rating):
+        """updates the movie with the id movie_id using the year, director and rating
+        that are sent in via arguments. returns a string depending on whether it was successful"""
+        movie_to_update = self.models.Movie.query.filter_by(id=movie_id).first()
+        movie_to_update.year = year
+        movie_to_update.director = director
+        movie_to_update.rating = rating
         try:
             self.models.db.session.commit()
             return 'Movie rating updated successfully!'
@@ -64,7 +76,8 @@ class SQLiteDataManager(DataManager):
 
     def delete_movie(self, movie_id):
         """this method is for the manager of the database: it deletes a movie entirely from the database.
-        if movie with the provided movie_id exists: deletes the movie"""
+        if movie with the provided movie_id exists: deletes the movie. returns a string depending on
+        whether it was successful or not"""
         to_delete = self.models.Movie.query.get(movie_id)
         if to_delete:
             return self.delete_movie_from_database_or_favorites_list(to_delete)
@@ -73,6 +86,9 @@ class SQLiteDataManager(DataManager):
 
 
     def delete_user_movie(self, user_id, movie_id):
+        """deletes a movie from a user's favorites list. takes in user_id of the relevant user
+        and movie_id of the movie that is to be deleted. returns a string depending on whether
+        it was successful or not"""
         to_delete = self.models.UserMovie.query.filter_by(user_id=user_id, movie_id=movie_id).first()
         if to_delete:
             return self.delete_movie_from_database_or_favorites_list(to_delete)
@@ -82,7 +98,7 @@ class SQLiteDataManager(DataManager):
 
     def delete_movie_from_database_or_favorites_list(self, to_delete):
         """helper method to delete movie either from our whole database or only from a user's favorites
-        to avoid duplicate code"""
+        to avoid duplicate code. returns a string depending on whether it was successful or not"""
         try:
             self.models.db.session.delete(to_delete)
             self.models.db.session.commit()

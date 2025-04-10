@@ -76,7 +76,7 @@ form input {
 }
 
 
-#link-to-favs {
+.flash, #link-to-favs {
     text-decoration: none;
     color: #4B0082;
     font-weight: bold;

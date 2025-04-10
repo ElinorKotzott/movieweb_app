@@ -76,8 +76,23 @@ def delete_movie(movie_id):
 
 @app.route('/update_movie', methods=['GET', 'POST'])
 def update_movie():
-    flash(data_manager.update_movie(movie, new_rating))
-    return render_template('update_movie.html')
+    all_movies = data_models.Movie.query.all()
+    selected_movie = None
+    if request.method == 'POST':
+        movie_id = request.form.get('title')
+
+        if movie_id and not request.form.get('year'):
+            selected_movie = data_models.Movie.query.filter_by(id=movie_id).first()
+
+        elif movie_id and request.form.get('year'):
+            selected_movie = data_models.Movie.query.filter_by(id=movie_id).first()
+            selected_movie.year = int(request.form.get('year'))
+            selected_movie.director = request.form.get('director')
+            selected_movie.rating = float(request.form.get('rating'))
+            flash(data_manager.update_movie(selected_movie))
+        return redirect('/')
+
+    return render_template('update_movie.html', movies=all_movies, selected_movie=selected_movie)
 
 
 if __name__ == '__main__':

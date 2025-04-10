@@ -8,6 +8,7 @@
     <link rel="icon" href="/static/camera.png" type="image/png">
 </head>
 <body>
+<main>
 
 <h1>Update Movie</h1>
 
@@ -16,19 +17,24 @@
     <select id="title" name="title" required>
         <option value="">Select a movie</option>
         {% for movie in movies %}
-        <option value="{{ movie['title'] }}"> <!-- {% if selected_movie and selected_movie['title'] == movie['title'] %}selected{% endif %} -->
-        {{ movie['title'] }}
+        <option value="{{ movie.id }}">{{ movie.name }}
         </option>
         {% endfor %}
+
     </select><br><br>
 
-    {% if selected_movie %}
     <label for="year">Year:</label>
-    <input type="number" id="year" name="year" value="{{ selected_movie['year'] }}" required><br><br>
+    <input type="number" id="year" name="year" required><br><br>
+
+     <label for="director">Director:</label>
+    <input type="text" id="director" name="director" required><br><br>
+
+    <label for="rating">Rating:</label>
+    <input type="number" id="rating" name="rating" step="0.1" min="0" max="10" required><br><br>
 
     <input type="submit" value="Update Movie">
-    {% endif %}
 </form>
+</main>
 
 
 </body>

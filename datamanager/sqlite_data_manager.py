@@ -52,10 +52,9 @@ class SQLiteDataManager(DataManager):
 
 
 
-    def update_movie(self, movie, new_rating):
+    def update_movie(self, movie):
         """allows user to update a movie rating. user input for new rating
         and movie instance to update will be sent in"""
-        movie.rating = new_rating
         try:
             self.models.db.session.commit()
             return 'Movie rating updated successfully!'
@@ -87,7 +86,7 @@ class SQLiteDataManager(DataManager):
         try:
             self.models.db.session.delete(to_delete)
             self.models.db.session.commit()
-            return 'Movie successfully deleted!'
+            return 'Movie deleted successfully!'
         except SQLAlchemyError:
             self.models.db.session.rollback()
             return 'An error occurred, movie could not be deleted!'

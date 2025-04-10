@@ -11,10 +11,16 @@
 <main>
     <h1>MovieWeb App Users:</h1>
     <div>
+        {% with message = get_flashed_messages()|first %}
+        {% if message %}
+        <div class="flash">{{ message }}</div>
+        {% endif %}
+        {% endwith %}
         <ul>
             {% for user in users %}
             <li>
-                <div>Name: <a id="link-to-favs" href="{{ url_for('list_user_movies', user_id=user.id) }}">{{ user.name }}</a> <br>
+                <div>Name: <a id="link-to-favs" href="{{ url_for('list_user_movies', user_id=user.id) }}">{{ user.name
+                    }}</a> <br>
                     Birthday: {{ user.birthday }} <br></div>
             </li>
             {% endfor %}

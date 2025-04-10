@@ -1,3 +1,5 @@
+from sqlalchemy.exc import SQLAlchemyError
+
 from movieweb_app.datamanager.data_manager import DataManager
 
 
@@ -29,21 +31,36 @@ class SQLiteDataManager(DataManager):
 
     def add_user(self, user):
         """this method takes a user object as an argument and adds it to the database"""
-        self.models.db.session.add(user)
-        self.models.db.session.commit()
+        try:
+            self.models.db.session.add(user)
+            self.models.db.session.commit()
+            return 'User added successfully!'
+        except SQLAlchemyError:
+            self.models.db.session.rollback()
+            return 'An error occurred, user could not be added!'
 
 
     def add_movie(self, movie):
         """the movie object sent in will be added to the database"""
-        self.models.db.session.add(movie)
-        self.models.db.session.commit()
+        try:
+            self.models.db.session.add(movie)
+            self.models.db.session.commit()
+            return 'Movie added successfully!'
+        except SQLAlchemyError:
+            self.models.db.session.rollback()
+            return 'An error occurred, movie could not be added!'
+
 
 
     def update_movie(self, movie, new_rating):
         """allows user to update a movie rating. user input for new rating
         and movie instance to update will be sent in"""
         movie.rating = new_rating
-        self.models.db.session.commit()
+        try:
+            self.models.db.session.commit()
+            return 'Movie rating updated successfully!'
+        except SQLAlchemyError:
+            return 'An error occurred, rating could not be updated!'
 
 
     def delete_movie(self, movie_id):
@@ -51,16 +68,26 @@ class SQLiteDataManager(DataManager):
         if movie with the provided movie_id exists: deletes the movie"""
         to_delete = self.models.Movie.query.get(movie_id)
         if to_delete:
-            self.models.db.session.delete(to_delete)
-            self.models.db.session.commit()
-
-        #TODO what happens if the deleted movie was part of a user's favorites list?
-        # will those rows be deleted automatically? can we tell the users that movies
-        # have been deleted from their lists because they weren't available any more?
+            return self.delete_movie_from_database_or_favorites_list(to_delete)
+        else:
+            return 'This movie doesn''t exist!'
 
 
     def delete_user_movie(self, user_id, movie_id):
         to_delete = self.models.UserMovie.query.filter_by(user_id=user_id, movie_id=movie_id).first()
         if to_delete:
+            return self.delete_movie_from_database_or_favorites_list(to_delete)
+        else:
+            return 'This movie doesn''t exist!'
+
+
+    def delete_movie_from_database_or_favorites_list(self, to_delete):
+        """helper method to delete movie either from our whole database or only from a user's favorites
+        to avoid duplicate code"""
+        try:
             self.models.db.session.delete(to_delete)
             self.models.db.session.commit()
+            return 'Movie successfully deleted!'
+        except SQLAlchemyError:
+            self.models.db.session.rollback()
+            return 'An error occurred, movie could not be deleted!'

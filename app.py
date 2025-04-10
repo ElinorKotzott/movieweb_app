@@ -3,7 +3,7 @@ import os
 
 from datamanager import data_models
 from datamanager.sqlite_data_manager import SQLiteDataManager
-from flask import Flask, request, render_template, redirect
+from flask import Flask, request, render_template, redirect, flash
 
 app = Flask(__name__)
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -12,6 +12,7 @@ os.makedirs(os.path.join(basedir, 'data'), exist_ok=True)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{db_path}'
 data_models.db.init_app(app)
+app.secret_key = 'incredibly_secret_key_wow'
 
 data_manager = SQLiteDataManager(data_models)
 
@@ -44,7 +45,7 @@ def add_movie():
         year = int(request.form.get('year'))
         rating = float(request.form.get('rating'))
         new_movie = data_models.Movie(name=name, director=director, year=year, rating=rating)
-        data_manager.add_movie(new_movie)
+        flash(data_manager.add_movie(new_movie))
         return redirect('/')
     return render_template('add_movie.html', current_year=current_year)
 
@@ -56,27 +57,26 @@ def add_user():
         birthday_str = request.form.get('birthday')
         birthday = datetime.strptime(birthday_str, '%Y-%m-%d')
         new_user = data_models.User(name=name, birthday=birthday)
-        data_manager.add_user(new_user)
+        flash(data_manager.add_user(new_user))
         return redirect('/')
     return render_template('add_user.html')
 
 
 @app.route('/users/<user_id>/delete_movie/<movie_id>', methods=['POST'])
 def delete_movie_from_favs(user_id, movie_id):
-    data_manager.delete_user_movie(user_id, movie_id)
+    flash(data_manager.delete_user_movie(user_id, movie_id))
     return redirect(f'/users/{user_id}')
 
 
 @app.route('/delete_movie/<movie_id>', methods=['POST'])
 def delete_movie(movie_id):
-    data_manager.delete_movie(movie_id)
-    # TODO add flash message 'movie successfully deleted' - how to do that?
-    #  also: how and where to check whether deletion was actually successful?
+    flash(data_manager.delete_movie(movie_id))
     return redirect('/')
 
 
 @app.route('/update_movie', methods=['GET', 'POST'])
 def update_movie():
+    flash(data_manager.update_movie(movie, new_rating))
     return render_template('update_movie.html')
 
 

@@ -12,8 +12,13 @@
     <a class="nav_element" href="/">Home</a>
     <a class="nav_element" href="/users/{{ user.id }}">My Favorites</a>
     <a class="nav_element" href="/users/{{ user.id }}/add_movie">Add Movie</a>
-    <h1>{{ user.name }}'s favorites list</h1>
+    <h1>{{ user.name }}'s Favorites List</h1>
     <div>
+        {% with message = get_flashed_messages()|first %}
+        {% if message %}
+        <div class="flash">{{ message }}</div>
+        {% endif %}
+        {% endwith %}
         <ul>
             {% for movie in user_movies %}
             <li>

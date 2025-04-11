@@ -14,17 +14,18 @@
     <a class="nav_element" href="/users/{{ user.id }}">My Favorites</a>
     <a class="nav_element" href="/users/{{ user.id }}/add_movie">Add Movie</a>
 
-    <h1>Add to {{ user.name }}'s favorites</h1>
+    <h1>Add to {{ user.name }}'s Favorites</h1>
 
-    <form action="/users/{{ user.id }}/add_movie" method="GET" id="select_movie_to_add_id">
+    <form action="/users/{{ user.id }}/add_movie" method="POST" id="select_movie_to_add_id">
         <label for="title">Movie Title:</label>
-        <select id="title" name="movie_id_select" required>
-            <option value="">Select a movie</option>
+        <select id="title" name="movie_id" required>
+            <option value="">Select a Movie</option>
             {% for movie in movies %}
-            <option value="{{ movie.id }}"{% if movie == selected_movie %}selected{% endif %}>{{ movie.name }}</option>
+            <option value="{{ movie.id }}">{{ movie.name }}</option>
             {% endfor %}
         </select>
         <br><br>
+        <button type="submit">Add to Favorites</button>
     </form>
 
 </main>

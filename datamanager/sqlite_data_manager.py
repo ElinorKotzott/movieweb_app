@@ -53,15 +53,14 @@ class SQLiteDataManager(DataManager):
         return self.add_movie_to_database_or_favorites_list(movie)
 
 
+    def add_user_movie(self, user_id, movie_id):
+        new_user_movie = self.models.UserMovie(user_id=user_id, movie_id=movie_id)
+        return self.add_movie_to_database_or_favorites_list(new_user_movie)
 
 
-    def add_user_movie(self, user_movie):
-        pass
-
-
-    def add_movie_to_database_or_favorites_list(self, row_element):
+    def add_movie_to_database_or_favorites_list(self, new_row):
         try:
-            self.models.db.session.add(row_element)
+            self.models.db.session.add(new_row)
             self.models.db.session.commit()
             return 'Movie added successfully!'
         except SQLAlchemyError:

@@ -72,7 +72,9 @@ def add_movie_to_favorites(user_id):
     user = data_models.User.query.get(user_id)
 
     if request.method == 'POST':
-        pass
+        movie_id = request.form['movie_id']
+        flash(data_manager.add_user_movie(user_id, movie_id))
+        return redirect(f'/users/{user_id}')
 
 
     return render_template('add_movie_to_favorites.html', user=user, movies=movies_not_in_favorites_list)

@@ -32,7 +32,7 @@
                     Rating: {{ movie.rating }} <br>
                 </div>
                 <div id="update-delete">
-                    <button href="/update_movie?movie_id_select={{ movie.id }}" id="update-button">Update</button>
+                    <a href="/update_movie?movie_id_select={{ movie.id }}" id="update-button">Update</a>
                     <form method="POST"
                           action="{{ url_for('delete_movie', movie_id=movie.id) }}">
                         <button id="delete_button_id" type="submit">Delete</button>

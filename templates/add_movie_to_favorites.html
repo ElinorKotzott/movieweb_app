@@ -5,6 +5,7 @@
     <title>Add Movie To Favs</title>
     <link rel="stylesheet" href="/static/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Borel&display=swap" rel="stylesheet">
     <link rel="icon" href="/static/camera.png" type="image/png">
 </head>
 <body>
@@ -18,12 +19,14 @@
 
     <form action="/users/{{ user.id }}/add_movie" method="POST" id="select_movie_to_add_id">
         <label for="title">Movie Title:</label>
+        <div class="dropdown">
         <select id="title" name="movie_id" required>
             <option value="">Select a Movie</option>
             {% for movie in movies %}
             <option value="{{ movie.id }}">{{ movie.name }}</option>
             {% endfor %}
         </select>
+        </div>
         <br><br>
         <button type="submit">Add to Favorites</button>
     </form>

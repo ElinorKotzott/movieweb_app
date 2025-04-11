@@ -138,11 +138,13 @@ def update_movie():
 
 @app.errorhandler(404)
 def page_not_found(e):
+    """renders 404 html template if error 404 occurs"""
     return render_template('404.html'), 404
 
 
 @app.errorhandler(500)
 def page_not_found(e):
+    """renders 500 html template if error 500 occurs"""
     return render_template('500.html'), 500
 
 

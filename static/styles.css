@@ -58,6 +58,7 @@ form label {
 }
 
 form input {
+box-sizing: border-box;
     font-family: "Borel", cursive;
     font-weight: 400;
     font-style: normal;
@@ -109,6 +110,35 @@ li {
     display: flex;
     justify-content: space-between;
     margin-bottom: 50px;
+}
+
+p {
+    font-weight: bold;
+    font-size: 1.5em;
+}
+
+.dropdown {
+display: flex;
+justify-content: center;
+}
+
+select {
+    display: block;
+    font-family: "Borel", cursive;
+    font-size: 1em;
+    color: #4B0082;
+    background-color: #FFDCCC;
+    border: 1px solid #F7C5E5;
+    border-radius: 6px;
+    padding: 10px;
+    width: 20em;
+    margin-bottom: 25px;
+    appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg fill='%234B0082' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 1em;
 }
 
 

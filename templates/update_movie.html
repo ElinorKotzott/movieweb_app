@@ -5,43 +5,50 @@
     <title>Update movie</title>
     <link rel="stylesheet" href="/static/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-     <link href="https://fonts.googleapis.com/css2?family=Borel&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Borel&display=swap" rel="stylesheet">
     <link rel="icon" href="/static/camera.png" type="image/png">
 </head>
 <body>
 <main>
+    <nav>
+        <a class="nav_element" href="/">Home</a>
+        <a class="nav_element" href="/users">All Users</a>
+        <a class="nav_element" href="/update_movie">Update</a>
+        <a class="nav_element" href="/add_movie">Add Movie</a>
+        <a class="nav_element" href="/add_user">Add User</a>
+    </nav>
 
     <h1>Update Movie</h1>
 
     <form action="/update_movie" method="GET" id="select_menu_form_id">
         <label for="title">Movie Title:</label>
+        <div class="dropdown">
         <select id="title" name="movie_id_select" onchange="document.getElementById('select_menu_form_id').submit()" required>
             <option value="">Select a movie</option>
             {% for movie in movies %}
             <option value="{{ movie.id }}"{% if movie == selected_movie %}selected{% endif %}>{{ movie.name }}</option>
             {% endfor %}
         </select>
+        </div>
         <br><br>
     </form>
     {% if selected_movie %}
     <form action="/update_movie" method="POST" id="update_movie_form_id">
         <input type="hidden" id="movie_id" name="movie_id" value="{{ selected_movie.id }}" required><br><br>
 
-        <label for="year">Year:</label>
+        <label for="year">Year:</label><br>
         <input type="number" id="year" name="year" value="{{ selected_movie.year }}" required><br><br>
 
-        <label for="director">Director:</label>
+        <label for="director">Director:</label><br>
         <input type="text" id="director" name="director" value="{{ selected_movie.director }}" required><br><br>
 
-        <label for="rating">Rating:</label>
+        <label for="rating">Rating:</label><br>
         <input type="number" id="rating" name="rating" step="0.1" min="0" max="10" value="{{ selected_movie.rating }}"
                required><br><br>
 
-        <input type="submit" value="Update Movie">
+        <button type="submit">Update Movie</button>
         {% endif %}
     </form>
 </main>
-
-
 </body>
 </html>

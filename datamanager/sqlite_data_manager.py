@@ -51,17 +51,21 @@ class SQLiteDataManager(DataManager):
     def add_movie(self, movie):
         """takes in a movie instance that will be added to the database. returns
         a string on whether it was successful"""
-        return self.add_movie_to_database_or_favorites_list(movie)
+        try:
+            self.models.db.session.add(movie)
+            self.models.db.session.commit()
+            return 'Movie added successfully!'
+        except SQLAlchemyError:
+            self.models.db.session.rollback()
+            return 'An error occurred, movie could not be added!'
 
 
     def add_user_movie(self, user_id, movie_id):
+        """creates a new instance of user_movie using user_id and movie_id and
+        saves it to the database. returns a string on whether that was successful"""
         new_user_movie = self.models.UserMovie(user_id=user_id, movie_id=movie_id)
-        return self.add_movie_to_database_or_favorites_list(new_user_movie)
-
-
-    def add_movie_to_database_or_favorites_list(self, new_row):
         try:
-            self.models.db.session.add(new_row)
+            self.models.db.session.add(new_user_movie)
             self.models.db.session.commit()
             return 'Movie added successfully!'
         except SQLAlchemyError:

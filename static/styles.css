@@ -71,6 +71,11 @@ form input {
     font-size: 1em;
 }
 
+#delete_button_id {
+    width: 100px;
+    height: 52px;
+}
+
 #update-button, form button {
     text-decoration: none;
     display: inline-block;
@@ -101,13 +106,10 @@ form input {
 }
 
 li {
-display: flex;
-justify-content: space-between;
-margin-bottom: 50px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 50px;
 }
 
-#delete_button_id {
-width: 100px;
-height: 52px;
-}
+
 

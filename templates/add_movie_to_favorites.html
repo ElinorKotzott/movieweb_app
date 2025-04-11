@@ -9,11 +9,11 @@
 </head>
 <body>
 <main>
-
-    <a class="nav_element" href="/">Home</a>
-    <a class="nav_element" href="/users/{{ user.id }}">My Favorites</a>
-    <a class="nav_element" href="/users/{{ user.id }}/add_movie">Add Movie</a>
-
+    <nav>
+        <a class="nav_element" href="/">Home</a>
+        <a class="nav_element" href="/users/{{ user.id }}">My Favorites</a>
+        <a class="nav_element" href="/users/{{ user.id }}/add_movie">Add Movie</a>
+    </nav>
     <h1>Add to {{ user.name }}'s Favorites</h1>
 
     <form action="/users/{{ user.id }}/add_movie" method="POST" id="select_movie_to_add_id">

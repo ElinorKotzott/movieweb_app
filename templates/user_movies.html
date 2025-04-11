@@ -9,9 +9,11 @@
 </head>
 <body>
 <main>
-    <a class="nav_element" href="/">Home</a>
-    <a class="nav_element" href="/users/{{ user.id }}">My Favorites</a>
-    <a class="nav_element" href="/users/{{ user.id }}/add_movie">Add Movie</a>
+    <nav>
+        <a class="nav_element" href="/">Home</a>
+        <a class="nav_element" href="/users/{{ user.id }}">My Favorites</a>
+        <a class="nav_element" href="/users/{{ user.id }}/add_movie">Add Movie</a>
+    </nav>
     <h1>{{ user.name }}'s Favorites List</h1>
     <div>
         {% with message = get_flashed_messages()|first %}

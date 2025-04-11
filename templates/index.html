@@ -9,7 +9,7 @@
 </head>
 <body>
 <main>
-    <nav style="margin-bottom: 10px">
+    <nav>
         <a class="nav_element" href="/">Home</a>
         <a class="nav_element" href="/users">All Users</a>
         <a class="nav_element" href="/add_movie">Add Movie</a>
@@ -32,10 +32,10 @@
                     Rating: {{ movie.rating }} <br>
                 </div>
                 <div id="update-delete">
-                    <a href="/update_movie?movie_id_select={{ movie.id }}" id="update-button">Update</a>
+                    <button href="/update_movie?movie_id_select={{ movie.id }}" id="update-button">Update</button>
                     <form method="POST"
                           action="{{ url_for('delete_movie', movie_id=movie.id) }}">
-                        <button type="submit">Delete</button>
+                        <button id="delete_button_id" type="submit">Delete</button>
                     </form>
                 </div>
             </li>

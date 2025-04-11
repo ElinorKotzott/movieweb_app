@@ -10,6 +10,7 @@ class SQLiteDataManager(DataManager):
         data models that it is supposed to be using"""
         self.models = models
 
+
     def get_all_movies(self):
         """finding all movies in the database by querying the movies table
         in the database, then returning all movie instances"""

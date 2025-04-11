@@ -66,8 +66,8 @@ def add_movie_to_favorites(user_id):
     # getting all ids of movies NOT in user's favorites list by comparing to all movies in the database
     ids_not_in_favorites_list = [movie.id for movie in data_models.Movie.query.all() if movie.id not in user_movie_ids]
     # getting all movies not in user's favorites list by querying using the ids
-    movies_not_in_favorites_list = data_models.Movie.query.filter(data_models.Movie.id.in_(ids_not_in_favorites_list)).all()
-
+    movies_not_in_favorites_list = data_models.Movie.query.filter(
+        data_models.Movie.id.in_(ids_not_in_favorites_list)).all()
 
     user = data_models.User.query.get(user_id)
 
@@ -76,11 +76,7 @@ def add_movie_to_favorites(user_id):
         flash(data_manager.add_user_movie(user_id, movie_id))
         return redirect(f'/users/{user_id}')
 
-
     return render_template('add_movie_to_favorites.html', user=user, movies=movies_not_in_favorites_list)
-
-
-
 
 
 @app.route('/add_user', methods=['GET', 'POST'])
@@ -124,7 +120,6 @@ def get_selected_movie_information():
     if movie_id is not None:
         selected_movie = data_models.Movie.query.filter_by(id=movie_id).first()
     return render_template('update_movie.html', movies=all_movies, selected_movie=selected_movie)
-
 
 
 @app.route('/update_movie', methods=['POST'])

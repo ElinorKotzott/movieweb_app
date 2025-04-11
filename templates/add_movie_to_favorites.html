@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Movie To Favs</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="icon" href="/static/camera.png" type="image/png">
+</head>
+<body>
+<main>
+
+    <a class="nav_element" href="/">Home</a>
+    <a class="nav_element" href="/users/{{ user.id }}">My Favorites</a>
+    <a class="nav_element" href="/users/{{ user.id }}/add_movie">Add Movie</a>
+
+    <h1>Add to {{ user.name }}'s favorites</h1>
+
+    <form action="/users/{{ user.id }}/add_movie" method="GET" id="select_movie_to_add_id">
+        <label for="title">Movie Title:</label>
+        <select id="title" name="movie_id_select" required>
+            <option value="">Select a movie</option>
+            {% for movie in movies %}
+            <option value="{{ movie.id }}"{% if movie == selected_movie %}selected{% endif %}>{{ movie.name }}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+    </form>
+
+</main>
+</body>
+</html>

@@ -9,6 +9,12 @@
 </head>
 <body>
 <main>
+    <nav style="margin-bottom: 10px">
+        <a class="nav_element" href="/">Home</a>
+        <a class="nav_element" href="/users">All Users</a>
+        <a class="nav_element" href="/add_movie">Add Movie</a>
+        <a class="nav_element" href="/add_user">Add User</a>
+    </nav>
     <h1>MovieWeb App Users:</h1>
     <div>
         {% with message = get_flashed_messages()|first %}

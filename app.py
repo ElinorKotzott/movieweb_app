@@ -55,6 +55,32 @@ def add_movie():
     return render_template('add_movie.html', current_year=current_year)
 
 
+@app.route('/users/<user_id>/add_movie', methods=['GET', 'POST'])
+def add_movie_to_favorites(user_id):
+    """allows an app user to add a movie that already exists in the database
+    to their personal favorites list"""
+    # getting all movies in the user's favorites list
+    user_movies = data_models.UserMovie.query.filter_by(user_id=user_id).all()
+    # getting all movie ids of those movies
+    user_movie_ids = [user_movie.movie_id for user_movie in user_movies]
+    # getting all ids of movies NOT in user's favorites list by comparing to all movies in the database
+    ids_not_in_favorites_list = [movie.id for movie in data_models.Movie.query.all() if movie.id not in user_movie_ids]
+    # getting all movies not in user's favorites list by querying using the ids
+    movies_not_in_favorites_list = data_models.Movie.query.filter(data_models.Movie.id.in_(ids_not_in_favorites_list)).all()
+
+
+    user = data_models.User.query.get(user_id)
+
+    if request.method == 'POST':
+        pass
+
+
+    return render_template('add_movie_to_favorites.html', user=user, movies=movies_not_in_favorites_list)
+
+
+
+
+
 @app.route('/add_user', methods=['GET', 'POST'])
 def add_user():
     """allows adding a user to the database. renders add_user upon get request,
@@ -65,7 +91,7 @@ def add_user():
         birthday = datetime.strptime(birthday_str, '%Y-%m-%d')
         new_user = data_models.User(name=name, birthday=birthday)
         flash(data_manager.add_user(new_user))
-        return redirect('/')
+        return redirect('/users')
     return render_template('add_user.html')
 
 
@@ -88,7 +114,8 @@ def delete_movie(movie_id):
 
 @app.route('/update_movie', methods=['GET'])
 def get_selected_movie_information():
-    """"""
+    """first renders update movie template with dropdown menu. when user selected something,
+    then refreshes (onchange in html). sets user's title selection to selected"""
     selected_movie = None
     all_movies = data_models.Movie.query.all()
     movie_id = request.args.get('movie_id_select')
@@ -100,6 +127,10 @@ def get_selected_movie_information():
 
 @app.route('/update_movie', methods=['POST'])
 def update_movie():
+    """gets id of user's selection (id is hidden in html). gets the input from the form. user
+    can choose how many values to change. the desired values for each category are
+    sent in to update_movie which commits the changes. redirects to home with a
+    flash message"""
     movie_id = request.form.get('movie_id')
     if movie_id is not None:
         year = int(request.form.get('year'))

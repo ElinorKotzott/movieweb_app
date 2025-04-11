@@ -50,14 +50,23 @@ class SQLiteDataManager(DataManager):
     def add_movie(self, movie):
         """takes in a movie instance that will be added to the database. returns
         a string on whether it was successful"""
+        return self.add_movie_to_database_or_favorites_list(movie)
+
+
+
+
+    def add_user_movie(self, user_movie):
+        pass
+
+
+    def add_movie_to_database_or_favorites_list(self, row_element):
         try:
-            self.models.db.session.add(movie)
+            self.models.db.session.add(row_element)
             self.models.db.session.commit()
             return 'Movie added successfully!'
         except SQLAlchemyError:
             self.models.db.session.rollback()
             return 'An error occurred, movie could not be added!'
-
 
 
     def update_movie(self, movie_id, year, director, rating):
@@ -96,11 +105,11 @@ class SQLiteDataManager(DataManager):
             return 'This movie doesn''t exist!'
 
 
-    def delete_movie_from_database_or_favorites_list(self, to_delete):
+    def delete_movie_from_database_or_favorites_list(self, movie):
         """helper method to delete movie either from our whole database or only from a user's favorites
         to avoid duplicate code. returns a string depending on whether it was successful or not"""
         try:
-            self.models.db.session.delete(to_delete)
+            self.models.db.session.delete(movie)
             self.models.db.session.commit()
             return 'Movie deleted successfully!'
         except SQLAlchemyError:

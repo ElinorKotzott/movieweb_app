@@ -23,16 +23,18 @@
     <form action="/update_movie" method="GET" id="select_menu_form_id">
         <label for="title">Movie Title:</label>
         <div class="dropdown">
-        <select id="title" name="movie_id_select" onchange="document.getElementById('select_menu_form_id').submit()" required>
-            <option value="">Select a movie</option>
-            {% for movie in movies %}
-            <option value="{{ movie.id }}"{% if movie == selected_movie %}selected{% endif %}>{{ movie.name }}</option>
-            {% endfor %}
-        </select>
+            <select id="title" name="movie_id_select" onchange="document.getElementById('select_menu_form_id').submit()"
+                    required>
+                <option value="">Select a movie</option>
+                {% for movie in movies %}
+                <option value="{{ movie.id }}" {% if movie== selected_movie %}selected{% endif %}>{{ movie.name }}
+                </option>
+                {% endfor %}
+            </select>
         </div>
     </form>
     {% if selected_movie %}
-        <form action="/update_movie" method="POST" id="update_movie_form_id"><br>
+    <form action="/update_movie" method="POST" id="update_movie_form_id"><br>
         <input type="hidden" id="movie_id" name="movie_id" value="{{ selected_movie.id }}" required>
 
         <label for="year">Year:</label><br>

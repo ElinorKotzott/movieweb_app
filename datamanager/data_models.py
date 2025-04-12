@@ -1,4 +1,3 @@
-
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, String, Integer, Float, Date
 
@@ -19,14 +18,13 @@ class User(db.Model):
 
 
 class Movie(db.Model):
-
     __tablename__ = "movies"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String)
     director = Column(String)
     year = Column(Integer)
-    rating = Column (Float)
+    rating = Column(Float)
 
 
     def __str__(self):
@@ -40,5 +38,3 @@ class UserMovie(db.Model):
     id = Column(Integer, primary_key=True, autoincrement=True)
     user_id = Column(Integer)
     movie_id = Column(Integer)
-
-

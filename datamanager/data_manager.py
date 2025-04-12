@@ -14,5 +14,3 @@ class DataManager:
         @abstractmethod
         def get_user_movies(self, user_id):
             pass
-
-

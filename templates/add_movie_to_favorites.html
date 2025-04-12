@@ -20,12 +20,12 @@
     <form action="/users/{{ user.id }}/add_movie" method="POST" id="select_movie_to_add_id">
         <label for="title">Movie Title:</label>
         <div class="dropdown">
-        <select id="title" name="movie_id" required>
-            <option value="">Select a Movie</option>
-            {% for movie in movies %}
-            <option value="{{ movie.id }}">{{ movie.name }}</option>
-            {% endfor %}
-        </select>
+            <select id="title" name="movie_id" required>
+                <option value="">Select a Movie</option>
+                {% for movie in movies %}
+                <option value="{{ movie.id }}">{{ movie.name }}</option>
+                {% endfor %}
+            </select>
         </div>
         <br><br>
         <button type="submit">Add to Favorites</button>

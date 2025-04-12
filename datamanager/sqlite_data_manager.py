@@ -1,6 +1,7 @@
-from sqlalchemy.exc import SQLAlchemyError
 
-from movieweb_app.datamanager.data_manager import DataManager
+from sqlalchemy.exc import SQLAlchemyError
+from datamanager.data_manager import DataManager
+
 
 
 class SQLiteDataManager(DataManager):

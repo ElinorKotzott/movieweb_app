@@ -16,6 +16,10 @@ app.secret_key = 'incredibly_secret_key_wow'
 
 data_manager = SQLiteDataManager(data_models)
 
+#TODO fix huge gap between movie title and input fields in update_movie,
+# clean up CSS,
+# add responsiveness for small screens with media query
+
 
 @app.route('/')
 def home():
@@ -149,4 +153,4 @@ def page_not_found(e):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=5001)

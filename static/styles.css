@@ -16,15 +16,21 @@ main {
 
 nav {
     text-align: center;
-    margin-bottom: 10px;
+    margin-bottom: 40px;
 }
 
 .nav_element {
     text-decoration: none;
     font-weight: bold;
     color: #4B0082;
-    margin: 0 10px 0 0;
+    margin-right: 10px;
 }
+
+.nav_element:hover,
+#link-to-favs:hover {
+    color: #FDB7EA;
+}
+
 
 h1 {
     font-family: 'Poppins', sans-serif;
@@ -35,15 +41,30 @@ h1 {
     margin-bottom: 50px;
 }
 
+p {
+    font-weight: bold;
+    font-size: 1.5em;
+}
+
 ul {
     padding: 0;
     list-style-type: none;
 }
 
 li {
-    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 50px;
     color: #4B0082;
     line-height: 1.7;
+}
+
+.flash,
+#link-to-favs {
+    text-decoration: none;
+    color: #4B0082;
+    font-weight: bold;
+    margin-bottom: 30px;
 }
 
 form {
@@ -55,16 +76,19 @@ form label {
     font-weight: bold;
     color: #FDB7EA;
     font-size: 1.2em;
+    display: block;
+    margin-bottom: 8px;
 }
 
-form input {
-box-sizing: border-box;
+form input,
+select {
+    box-sizing: border-box;
     font-family: "Borel", cursive;
     font-weight: 400;
     font-style: normal;
-    margin-bottom: 25px;
     padding: 10px;
     width: 20em;
+    margin-bottom: 25px;
     border: 1px solid #F7C5E5;
     border-radius: 6px;
     background-color: #FFDCCC;
@@ -72,12 +96,29 @@ box-sizing: border-box;
     font-size: 1em;
 }
 
+select {
+    display: block;
+    margin: 0 auto 25px;
+    padding-right: 10px;
+    margin-top: 30px;
+    margin-bottom: 25px;
+    width: 20em;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10"%3E%3Cpath d="M2 3L5 6L8 3" stroke="%234B0082" stroke-width="2" fill="none"/%3E%3C/svg%3E');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 10px;
+}
+
 #delete_button_id {
     width: 100px;
     height: 52px;
 }
 
-#update-button, form button {
+#update-button,
+form button {
     text-decoration: none;
     display: inline-block;
     padding: 12px 20px;
@@ -90,56 +131,7 @@ box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
 }
 
-#update-button:hover, form button:hover {
+#update-button:hover,
+form button:hover {
     background-color: #D0C9F7;
 }
-
-
-.flash, #link-to-favs {
-    text-decoration: none;
-    color: #4B0082;
-    font-weight: bold;
-    margin-bottom: 30px;
-}
-
-#link-to-favs:hover, .nav_element:hover {
-    color: #FDB7EA;
-}
-
-li {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 50px;
-}
-
-p {
-    font-weight: bold;
-    font-size: 1.5em;
-}
-
-.dropdown {
-display: flex;
-justify-content: center;
-}
-
-select {
-    display: block;
-    font-family: "Borel", cursive;
-    font-size: 1em;
-    color: #4B0082;
-    background-color: #FFDCCC;
-    border: 1px solid #F7C5E5;
-    border-radius: 6px;
-    padding: 10px;
-    width: 20em;
-    margin-bottom: 25px;
-    appearance: none;
-    -moz-appearance: none;
-    background-image: url("data:image/svg+xml;utf8,<svg fill='%234B0082' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
-    background-repeat: no-repeat;
-    background-position: right 10px center;
-    background-size: 1em;
-}
-
-
-

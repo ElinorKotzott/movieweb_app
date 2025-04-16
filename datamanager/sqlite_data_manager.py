@@ -27,14 +27,14 @@ class SQLiteDataManager(DataManager):
 
 
     def get_user_movies(self, user_id):
-        """getting all movies in a user's favorites list: first, filtering users_movies by user_id.
-        then, extracting movie ids from these results. then, checking for these
-        movie ids in the movies table and returning the whole movie objects"""
-        user_movie_instances = self.models.UserMovie.query.filter_by(user_id=user_id).all()
-        movie_ids = [instance.movie_id for instance in user_movie_instances]
-        all_movies = self.models.Movie.query.all()
-        user_movies = [movie for movie in all_movies if movie.id in movie_ids]
-        return user_movies
+        """getting all movies in a user's favorites list: first, getting
+         user_movies with a certain user_id and then returning the whole movie objects"""
+        user_movies = self.models.User.query.get(user_id).movies
+        for user_movie in user_movies:
+            print(user_movie.movie_id)
+        actual_movies = [um.movie for um in user_movies]
+
+        return actual_movies
 
 
     def add_user(self, user):

@@ -1,8 +1,9 @@
-from datetime import datetime
 import os
 
 from datamanager import data_models
 from datamanager.sqlite_data_manager import SQLiteDataManager
+from datetime import datetime
+from dotenv import load_dotenv
 from flask import Flask, request, render_template, redirect, flash
 
 app = Flask(__name__)
@@ -12,7 +13,8 @@ os.makedirs(os.path.join(basedir, 'data'), exist_ok=True)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{db_path}'
 data_models.db.init_app(app)
-app.secret_key = 'incredibly_secret_key_wow'
+load_dotenv()
+app.secret_key = os.getenv("SECRET_KEY")
 
 data_manager = SQLiteDataManager(data_models)
 
@@ -134,7 +136,9 @@ def update_movie():
         director = request.form.get('director')
         rating = float(request.form.get('rating'))
         flash(data_manager.update_movie(movie_id, year, director, rating))
-        return redirect('/')
+    else:
+        flash('Something went wrong - this movie doesn''t exist!')
+    return redirect('/')
 
 
 @app.errorhandler(404)
@@ -144,10 +148,12 @@ def page_not_found(e):
 
 
 @app.errorhandler(500)
-def page_not_found(e):
+def page_not_found(f):
     """renders 500 html template if error 500 occurs"""
     return render_template('500.html'), 500
 
 
 if __name__ == '__main__':
+    #with app.app_context():
+    #    data_models.db.create_all()
     app.run(debug=True, port=5001)

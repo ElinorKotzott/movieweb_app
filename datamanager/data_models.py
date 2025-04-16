@@ -10,6 +10,7 @@ class User(db.Model):
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String)
     birthday = Column(Date)
+    movies = db.relationship('UserMovie', backref='user', lazy=True)
 
 
     def __str__(self):
@@ -25,6 +26,7 @@ class Movie(db.Model):
     director = Column(String)
     year = Column(Integer)
     rating = Column(Float)
+    user_movies = db.relationship('UserMovie', backref='movie', lazy=True)
 
 
     def __str__(self):
@@ -36,5 +38,5 @@ class UserMovie(db.Model):
     __tablename__ = "users_movies"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    user_id = Column(Integer)
-    movie_id = Column(Integer)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='CASCADE'), nullable=False)
+    movie_id = db.Column(db.Integer, db.ForeignKey('movies.id', ondelete='CASCADE'), nullable=False)
